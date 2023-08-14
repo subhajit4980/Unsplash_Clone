@@ -6,7 +6,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.example.unplashclone.data.local.UnsplashDatabase
+import com.example.unplashclone.data.local.LocalDatabase
 import com.example.unplashclone.data.remote.UnsplashApi
 import com.example.unplashclone.model.UnsplashImage
 import com.example.unplashclone.model.UnsplashRemoteKeys
@@ -15,11 +15,11 @@ import com.example.unplashclone.utils.Constants.ITEMS_PER_PAGE
 @ExperimentalPagingApi
 class UnsplashRemoteMediator(
     private val unsplashApi: UnsplashApi,
-    private val unsplashDatabase: UnsplashDatabase
+    private val localDatabase: LocalDatabase
 ) : RemoteMediator<Int, UnsplashImage>() {
 
-    private val unsplashImageDao = unsplashDatabase.unsplashImageDao()
-    private val unsplashRemoteKeysDao = unsplashDatabase.unsplashRemoteKeysDao()
+    private val unsplashImageDao = localDatabase.unsplashImageDao()
+    private val unsplashRemoteKeysDao = localDatabase.unsplashRemoteKeysDao()
 
     override suspend fun load(
         loadType: LoadType,
@@ -55,7 +55,7 @@ class UnsplashRemoteMediator(
             val prevPage = if (currentPage == 1) null else currentPage - 1
             val nextPage = if (endOfPaginationReached) null else currentPage + 1
 
-            unsplashDatabase.withTransaction {
+            localDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     unsplashImageDao.deleteAllImages()
                     unsplashRemoteKeysDao.deleteAllRemoteKeys()

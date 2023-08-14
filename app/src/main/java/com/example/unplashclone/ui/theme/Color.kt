@@ -11,6 +11,7 @@ val HeartRed = Color(0xFFFF4444)
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
+val transparent_background= Color(0x3E2E2E2E)
 //val ColorScheme.topAppBarContentColor: Color
 //    get() = if  Color.White else Color.LightGray
 //

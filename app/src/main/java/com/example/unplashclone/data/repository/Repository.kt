@@ -5,7 +5,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.unplashclone.data.local.UnsplashDatabase
+import com.example.unplashclone.data.local.LocalDatabase
 import com.example.unplashclone.data.paging.SearchPagingSource
 import com.example.unplashclone.data.paging.UnsplashRemoteMediator
 import com.example.unplashclone.data.remote.UnsplashApi
@@ -17,16 +17,16 @@ import javax.inject.Inject
 @ExperimentalPagingApi
 class Repository @Inject constructor(
     private val unsplashApi: UnsplashApi,
-    private val unsplashDatabase: UnsplashDatabase
+    private val localDatabase: LocalDatabase
 ) {
 
     fun getAllImages(): Flow<PagingData<UnsplashImage>> {
-        val pagingSourceFactory = { unsplashDatabase.unsplashImageDao().getAllImages() }
+        val pagingSourceFactory = { localDatabase.unsplashImageDao().getAllImages() }
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             remoteMediator = UnsplashRemoteMediator(
                 unsplashApi = unsplashApi,
-                unsplashDatabase = unsplashDatabase
+                localDatabase = localDatabase
             ),
             pagingSourceFactory = pagingSourceFactory
         ).flow

@@ -8,7 +8,7 @@ import com.example.unplashclone.model.UnsplashImage
 import com.example.unplashclone.model.UnsplashRemoteKeys
 
 @Database(entities = [UnsplashImage::class, UnsplashRemoteKeys::class], version = 1)
-abstract class UnsplashDatabase : RoomDatabase() {
+abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun unsplashImageDao(): UnsplashImageDao
     abstract fun unsplashRemoteKeysDao(): UnsplashRemoteKeysDao

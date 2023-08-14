@@ -1,9 +1,9 @@
-package com.example.unplashclone.model.di
+package com.example.unplashclone.di
 
 
 import android.content.Context
 import androidx.room.Room
-import com.example.unplashclone.data.local.UnsplashDatabase
+import com.example.unplashclone.data.local.LocalDatabase
 import com.example.unplashclone.utils.Constants.UNSPLASH_DATABASE
 import dagger.Module
 import dagger.Provides
@@ -20,10 +20,10 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ): UnsplashDatabase {
+    ): LocalDatabase {
         return Room.databaseBuilder(
             context,
-            UnsplashDatabase::class.java,
+            LocalDatabase::class.java,
             UNSPLASH_DATABASE
         ).build()
     }

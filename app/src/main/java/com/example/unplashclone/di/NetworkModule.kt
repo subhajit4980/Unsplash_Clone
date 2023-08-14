@@ -1,4 +1,4 @@
-package com.example.unplashclone.model.di
+package com.example.unplashclone.di
 
 
 import com.example.unplashclone.data.remote.UnsplashApi
